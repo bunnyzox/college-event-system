@@ -103,10 +103,6 @@ const organizerPassword = "admin123";
 function toggleStudent() {
   const box = document.getElementById("studentBox");
   box.style.display = box.style.display === "block" ? "none" : "block";
-
-  if (box.style.display === "block") {
-    loadEventsForStudents();
-  }
 }
 
 /* ================= ORGANIZER TOGGLE ================= */
@@ -116,15 +112,12 @@ function toggleOrganizer() {
   if (pass === organizerPassword) {
     const box = document.getElementById("organizerBox");
     box.style.display = box.style.display === "block" ? "none" : "block";
-
-    if (box.style.display === "block") {
-      loadEventsForOrganizer();
-    }
   } else {
     alert("❌ Access Denied");
   }
 }
 </script>
+
 </head>
 
 <body>
