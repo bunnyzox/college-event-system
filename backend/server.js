@@ -207,9 +207,6 @@ app.get("/download-registrations", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-// serve frontend files
-app.use(express.static(path.join(__dirname, "frontend")));
-
 // FIRST PAGE → index.html (WELCOME)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
@@ -219,6 +216,9 @@ app.get("/", (req, res) => {
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "home.html"));
 });
+
+// ✅ STATIC FILES MUST BE LAST
+app.use(express.static(path.join(__dirname, "frontend")));
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
