@@ -210,14 +210,10 @@ app.get("/download-registrations", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
-// Always serve frontend (Express v5 safe)
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
-});
 
 
 app.listen(PORT, () => {
