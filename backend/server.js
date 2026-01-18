@@ -1,15 +1,15 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./db");
 
 const app = express();
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+/* ================= MIDDLEWARE ================= */
 app.use(cors());
 app.use(bodyParser.json());
-
-app.get("/", (req, res) => {
-  res.send("College Event System Backend Running");
-});
 
 /* ================= STUDENTS ================= */
 
@@ -109,7 +109,6 @@ app.delete("/events/:id", (req, res) => {
   );
 });
 
-/* ================= REGISTRATIONS ================= */
 
 /* ================= REGISTRATIONS ================= */
 
@@ -168,39 +167,6 @@ app.get("/registrations", (req, res) => {
   });
 });
 
-// ================= DOWNLOAD REGISTRATIONS =================
-app.get("/download-registrations", (req, res) => {
-  const sql = `
-    SELECT 
-      students.name AS Student_Name,
-      students.roll_no AS Roll_Number,
-      events.title AS Event_Name
-    FROM registrations
-    JOIN students ON registrations.student_id = students.student_id
-    JOIN events ON registrations.event_id = events.event_id
-  `;
-
-  db.query(sql, (err, rows) => {
-    if (err) {
-      return res.status(500).json({ message: "Failed to download registrations" });
-    }
-
-    // Create CSV
-    let csv = "Student Name,Roll Number,Event Name\n";
-
-    rows.forEach(r => {
-      csv += `${r.Student_Name},${r.Roll_Number},${r.Event_Name}\n`;
-    });
-
-    res.setHeader("Content-Type", "text/csv");
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=registrations.csv"
-    );
-
-    res.send(csv);
-  });
-});
 
 /* ================= DOWNLOAD REGISTRATIONS ================= */
 
@@ -241,6 +207,9 @@ app.get("/download-registrations", (req, res) => {
 
 
 const PORT = process.env.PORT || 3000;
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
