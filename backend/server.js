@@ -207,18 +207,18 @@ app.get("/download-registrations", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-// FIRST PAGE → index.html (WELCOME)
+// ✅ FIRST PAGE → Welcome page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
-// SECOND PAGE → home.html (MAIN PAGE)
+// ✅ SECOND PAGE → Main page
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "home.html"));
 });
 
-// ✅ STATIC FILES MUST BE LAST
-app.use(express.static(path.join(__dirname, "frontend")));
+// ✅ Serve static files SAFELY
+app.use("/static", express.static(path.join(__dirname, "frontend")));
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
