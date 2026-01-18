@@ -1,207 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>College Event Registration System | VVIT</title>
-<link rel="stylesheet" href="style.css">
+  <title>Welcome | VVIT</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-}
-
-/* ===== HERO IMAGE ===== */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 90vh;
-  overflow: hidden;
-}
-
-.hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Dark overlay */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.hero-overlay h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.hero-overlay p {
-  font-size: 20px;
-  margin-bottom: 40px;
-}
-
-/* Buttons on image */
-.hero-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.hero-btn {
-  padding: 14px 40px;
-  font-size: 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background: #007bff;
-  color: white;
-  transition: 0.3s;
-}
-
-.hero-btn:hover {
-  background: #0056b3;
-}
-
-/* ===== CONTENT BOXES ===== */
-.content {
-  display: none;
-  background: white;
-  padding: 20px;
-  width: 50%;
-  margin: 40px auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-
-</style>
-
-<script>
-const organizerPassword = "admin123";
-
-/* ================= STUDENT TOGGLE ================= */
-function toggleStudent() {
-  const box = document.getElementById("studentBox");
-  box.style.display = box.style.display === "block" ? "none" : "block";
-
-  if (box.style.display === "block") {
-    loadEventsForStudents();
-  }
-}
-
-/* ================= ORGANIZER TOGGLE ================= */
-function toggleOrganizer() {
-  const pass = prompt("Enter Organizer Password:");
-
-  if (pass === organizerPassword) {
-    const box = document.getElementById("organizerBox");
-    box.style.display = box.style.display === "block" ? "none" : "block";
-
-    if (box.style.display === "block") {
-      loadEventsForOrganizer();
+  <style>
+    body {
+      font-family: Arial;
+      background: #0d47a1;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-  } else {
-    alert("❌ Access Denied");
-  }
-}
-</script>
+
+    .box {
+      background: white;
+      color: black;
+      padding: 40px;
+      border-radius: 10px;
+      width: 50%;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ===== FULL HERO SECTION ===== -->
-<div class="hero">
-  <img src="vvit.jpg" alt="VVIT College">
+  <div class="box">
+    <h1>Welcome to VVIT</h1>
+    <h2>College Event Registration System</h2>
+    <p>Vasireddy Venkatadri Institute of Technology</p>
 
-  <div class="hero-overlay">
-    <h1>Vasireddy Venkatadri Institute of Technology</h1>
-    <p>College Event Registration System</p>
-
-    <div class="hero-buttons">
-      <button class="hero-btn" onclick="toggleStudent()">STUDENT</button>
-      <button class="hero-btn" onclick="toggleOrganizer()">ORGANIZER 🔒</button>
-    </div>
+    <!-- ✅ CONTINUE BUTTON -->
+    <button onclick="goNext()">Continue</button>
   </div>
-</div>
 
+  <script>
+    function goNext() {
+      window.location.href = "/home.html";
+    }
+  </script>
 
-<!-- ================= STUDENT ================= -->
-<div class="role-box" onclick="toggleStudent()">STUDENT</div>
-
-<div class="content" id="studentBox">
-
-  <h3>Add Student</h3>
-  <input id="studentName" placeholder="Student Name">
-  <input id="rollNo" placeholder="Roll No">
-  <button onclick="addStudent()">Add Student</button>
-
-  <h3>Edit Student</h3>
-  <input id="editStudentId" placeholder="Student ID">
-  <input id="editStudentName" placeholder="New Name">
-  <input id="editStudentRoll" placeholder="New Roll No">
-  <button onclick="editStudent()">Edit Student</button>
-
-  <h3>Delete Student</h3>
-  <input id="deleteStudentId" placeholder="Student ID">
-  <button onclick="deleteStudent()">Delete Student</button>
-
-  <h3>Register for Event</h3>
-  <input id="studentId" placeholder="Roll No">
-
-  <select id="eventSelect">
-    <option value="">-- Select Event --</option>
-  </select>
-
-  <button onclick="registerEvent()">Register</button>
-</div>
-
-<!-- ================= ORGANIZER ================= -->
-<div class="role-box" onclick="toggleOrganizer()">ORGANIZER 🔒</div>
-
-<div class="content" id="organizerBox">
-
-  <h3>Add Event</h3>
-  <input id="eventTitle" placeholder="Event Title">
-  <input id="eventDesc" placeholder="Description">
-  <input id="eventDate" type="date">
-  <button onclick="addEvent()">Add Event</button>
-
-  <h3>Delete Event</h3>
-  <select id="deleteEventSelect">
-    <option value="">-- Select Event to Delete --</option>
-  </select>
-  <button onclick="deleteEvent()">Delete Event</button>
-
-  <h3>View Registrations</h3>
-  <button onclick="viewRegistrations()">View Registrations</button>
-  <ul id="list"></ul>
-
-  <!-- ✅ NEW FEATURE -->
-  <h3>Download Registrations</h3>
-  <button onclick="downloadRegistrations()">Download CSV</button>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
