@@ -210,8 +210,6 @@ app.get("/download-registrations", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-// serve static files (css, js, images)
-app.use(express.static(path.join(__dirname, "frontend")));
 
 // FIRST PAGE → welcome.html
 app.get("/", (req, res) => {
