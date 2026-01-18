@@ -10,7 +10,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // ✅ Serve frontend
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(path.join(__dirname, "frontend")));
+
 
 /* ================= STUDENTS ================= */
 
@@ -210,7 +211,7 @@ app.get("/download-registrations", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 app.listen(PORT, () => {
